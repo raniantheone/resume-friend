@@ -91,6 +91,9 @@ class Resume extends Component {
     }).map((dataEntry) => {
       return builder(dataEntry);
     });
+    if(sectionEntries.length === 0) {
+      return (null);
+    } // skipping the entire section if there's no related data, e.g., skipping side project section
 
     function setSectionShell(defId) {
       if(defId === "Contact") {
