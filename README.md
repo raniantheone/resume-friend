@@ -11,3 +11,6 @@ Basically it is a very simple front-end react app, which does the following
 3. Mix and match data and style
 
 The work of data part is mostly taken care of by the freemium service of [Contentful](https://www.contentful.com/), which delivers my data with simple API and has a web application for data schema and management. The work of display part is done by react components placed in /src/skins folder. The UI simply provide interface to choose between those data and components.
+
+## Sample Glimpse
+![UI](https://i.imgur.com/FrArI8O.png)
