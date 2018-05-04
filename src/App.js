@@ -173,9 +173,6 @@ class App extends Component {
     this.styleChangeHandler = this.styleChangeHandler.bind(this);
     this.localeChangeHandler = this.localeChangeHandler.bind(this);
 
-    this.updSelectedItem = this.updSelectedItem.bind(this);
-    this.updDocumentAndStyleByType = this.updDocumentAndStyleByType.bind(this);
-
   }
 
   async componentDidMount() {
@@ -273,46 +270,6 @@ class App extends Component {
     stateToBe = Object.assign(mappedParentPartialState, stateToBe);
     console.log(stateToBe);
     this.setState(stateToBe);
-
-  }
-
-  updSelectedItem(currentSelectedItem, mappedParentPartialState) {
-
-    console.log("1 start ... updSelectedItem");
-    console.log(this.state);
-
-    mappedParentPartialState[Object.keys(mappedParentPartialState)[0]] = currentSelectedItem;
-    // this.setState(mappedParentPartialState);
-    this.setState((prevState, props) => ({
-      mappedParentPartialState
-    }));
-    console.log("1 end ... updSelectedItem");
-    console.log(this.state);
-  }
-
-  async updDocumentAndStyleByType(selectedType) {
-
-    console.log("2 start ... updDocumentAndStyleByType");
-    console.log(this.state);
-
-    getDocumentsByType(selectedType.value).then((documents) => {
-
-      let newDocumentItems = documents;
-      let newStyleItems = getStyleByType(selectedType.value);
-
-      this.setState((prevState, props) => ({
-        documentItems: newDocumentItems,
-        currentDocument: newDocumentItems[0],
-        styleItems: newStyleItems,
-        currentStyle: newStyleItems[0]
-      }));
-
-      console.log("2 end");
-      console.log(this.state);
-
-    }).catch((error) => {
-      console.log(error);
-    });
 
   }
 
