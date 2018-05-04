@@ -40,23 +40,43 @@ class Resume extends Component {
       resumeDefinition: [
         {
           sectionId: "Contact",
-          sectionName: ""
+          sectionName: "",
+          sectionNames: [
+            {locale: "en-US", display: ""},
+            {locale: "zh", display: ""}
+          ]
         },
         {
           sectionId: "WorkExperience",
-          sectionName: "Work Experience"
+          sectionName: "Work Experience",
+          sectionNames: [
+            {locale: "en-US", display: "Work Experience"},
+            {locale: "zh", display: "工作經歷"}
+          ]
         },
         {
           sectionId: "SideProject",
-          sectionName: "Side Project"
+          sectionName: "Side Project",
+          sectionNames: [
+            {locale: "en-US", display: "Side Project"},
+            {locale: "zh", display: "個人專案"}
+          ]
         },
         {
           sectionId: "Skills",
-          sectionName: "Skills"
+          sectionName: "Skills",
+          sectionNames: [
+            {locale: "en-US", display: "Skills"},
+            {locale: "zh", display: "技能"}
+          ]
         },
         {
           sectionId: "Education",
-          sectionName: "Education"
+          sectionName: "Education",
+          sectionNames: [
+            {locale: "en-US", display: "Education"},
+            {locale: "zh", display: "學歷"}
+          ]
         }
       ]
     };
@@ -75,11 +95,12 @@ class Resume extends Component {
   3. Get desired data from filter by type identifier, and pass the data to builder function
   4. Render the data in builder function
   **/
-  createSection(sectionName, sectionDef) {
+  createSection(sectionName, sectionId) {
 
-    let builder = this.builderDictionary[sectionDef].builder;
-    let contentType = this.builderDictionary[sectionDef].contentType;
+    let builder = this.builderDictionary[sectionId].builder;
+    let contentType = this.builderDictionary[sectionId].contentType;
 
+    let locale;
     let sectionEntries = this.state.content.filter((item) => {
       return item.sys.contentType.sys.id === contentType;
     }).sort((a, b) => {
@@ -89,11 +110,17 @@ class Resume extends Component {
         return 0
       }
     }).map((dataEntry) => {
+      locale = dataEntry.sys.locale;
       return builder(dataEntry);
     });
     if(sectionEntries.length === 0) {
       return (null);
     } // skipping the entire section if there's no related data, e.g., skipping side project section
+    sectionName = this.state.resumeDefinition.filter((def) => {
+      return def.sectionId === sectionId;
+    }).map((matchedEntry) => {
+      return matchedEntry.sectionNames.filter((name) => { return name.locale === locale })[0].display;
+    })[0];  // xxx
 
     function setSectionShell(defId) {
       if(defId === "Contact") {
@@ -112,7 +139,7 @@ class Resume extends Component {
         );
       }
     }
-    let sectionInnerComponent = setSectionShell(sectionDef);
+    let sectionInnerComponent = setSectionShell(sectionId);
 
     return (
       <Segment vertical padded key={sectionName}>
