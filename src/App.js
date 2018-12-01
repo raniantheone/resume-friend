@@ -4,6 +4,7 @@ import { Dropdown, Grid } from "semantic-ui-react";
 import * as resumeStyles from "./skins/resume";
 import * as letterStyles from "./skins/coverLetter";
 import {config} from "./config/config_development";
+import 'semantic-ui-css/semantic.min.css';
 
 var contentful = require("contentful");
 var client = contentful.createClient({

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Card, Grid, Icon, Item, Label, Segment} from 'semantic-ui-react'
+// import 'semantic-ui-css/semantic.min.css';
 
 var Remarkable = require("remarkable");
 var md = new Remarkable({breaks: true});
